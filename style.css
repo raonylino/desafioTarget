@@ -1,0 +1,32 @@
+.tarefa1 {
+    background-color: #c3df90;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.tarefa2 {
+    background-color: #f0b27a;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.tarefa3 {
+    background-color: #85c1e9;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    background-color: #f7d1a7;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 12px;
+    gap: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css"
+            media="screen" />
+        <title>Desafios</title>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+    </head>
+    <body onload="analisarFaturamento()">
+        <header>
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="logo.png"
+                            alt="Logo" width="30" height="24"
+                            class="d-inline-block align-text-top">
+                        Desafios
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <div class="container mt-5">
+            <div class="tarefa1">
+                <h1 class="mb-4">Resultado da Soma</h1>
+                <p id="resultado"></p>
+            </div>
+
+            <div class="tarefa2">
+                <h1 class="mb-4">Resultados do Faturamento</h1>
+                <p id="menorFaturamento"></p>
+                <p id="maiorFaturamento"></p>
+                <p id="diasAcimaDaMedia"></p>
+            </div>
+
+            <div class="tarefa3">
+                <h2 class="mb-4">Percentual de Faturamento por Estado</h2>
+                <div id="faturamento" class="mb-4"></div>
+            </div>
+
+            <h2 class="mb-4">Verificar Número na Sequência de Fibonacci</h2>
+            <div class="input-group mb-3">
+                <input type="number" id="numFibonacci" class="form-control"
+                    placeholder="Digite um número">
+                <button onclick="verificarFibonacci()"
+                    class="btn btn-primary">Verificar</button>
+            </div>
+            <p id="resultadoFibonacci"></p>
+
+            <h2 class="mb-4">Inverter String</h2>
+            <div class="input-group mb-3">
+                <input type="text" id="stringInput" value="Hello, World!"
+                    class="form-control">
+                <button onclick="inverterString()"
+                    class="btn btn-warning">Inverter</button>
+            </div>
+            <p id="resultadoString"></p>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            const faturamentoDiario = [
+                { "dia": 1, "faturamento": 200 },
+                { "dia": 2, "faturamento": 0 },
+                { "dia": 3, "faturamento": 450 },
+                { "dia": 4, "faturamento": 700 },
+                { "dia": 5, "faturamento": 0 },
+                { "dia": 6, "faturamento": 550 },
+                { "dia": 7, "faturamento": 0 },
+                { "dia": 8, "faturamento": 300 },
+                { "dia": 9, "faturamento": 500 },
+                { "dia": 10, "faturamento": 0 },
+                { "dia": 11, "faturamento": 800 },
+                { "dia": 12, "faturamento": 0 },
+                { "dia": 13, "faturamento": 600 },
+                { "dia": 14, "faturamento": 0 },
+                { "dia": 15, "faturamento": 750 }
+            ];
+
+            let menorFaturamento = Number.MAX_VALUE;
+            let maiorFaturamento = 0;
+            let somaFaturamento = 0;
+            let diasComFaturamento = 0;
+            let diasAcimaDaMedia = 0;
+
+            faturamentoDiario.forEach(item => {
+                const faturamento = item.faturamento;
+
+                if (faturamento > 0 && faturamento < menorFaturamento) {
+                    menorFaturamento = faturamento;
+                }
+
+                if (faturamento > maiorFaturamento) {
+                    maiorFaturamento = faturamento;
+                }
+
+                if (faturamento > 0) {
+                    somaFaturamento += faturamento;
+                    diasComFaturamento++;
+                }
+            });
+
+            const mediaMensal = somaFaturamento / diasComFaturamento;
+
+            faturamentoDiario.forEach(item => {
+                if (item.faturamento > mediaMensal) {
+                    diasAcimaDaMedia++;
+                }
+            });
+
+            document.getElementById("menorFaturamento").innerText = `Menor valor de faturamento: R$ ${menorFaturamento}`;
+            document.getElementById("maiorFaturamento").innerText = `Maior valor de faturamento: R$ ${maiorFaturamento}`;
+            document.getElementById("diasAcimaDaMedia").innerText = `Número de dias com faturamento acima da média: ${diasAcimaDaMedia}`;
+
+            function analisarFaturamento() {
+                let faturamentoEstados = {
+                    "SP": 67836.43,
+                    "RJ": 36678.66,
+                    "MG": 29229.88,
+                    "ES": 27165.48,
+                    "Outros": 19849.53
+                };
+                let total = Object.values(faturamentoEstados).reduce((acc, val) => acc + val, 0);
+                let resultado = "";
+                for (let estado in faturamentoEstados) {
+                    let percentual = ((faturamentoEstados[estado] / total) * 100).toFixed(2);
+                    resultado += `${estado}: ${percentual}%<br>`;
+                }
+                document.getElementById("faturamento").innerHTML = resultado;
+            }
+
+            function verificarFibonacci() {
+                let num = parseInt(document.getElementById("numFibonacci").value);
+                let a = 0, b = 1;
+                while (a < num) {
+                    [a, b] = [b, a + b];
+                }
+                document.getElementById("resultadoFibonacci").innerText = a === num ? "O número pertence à sequência de Fibonacci." : "O número NÃO pertence à sequência de Fibonacci.";
+            }
+
+            function inverterString() {
+                let str = document.getElementById("stringInput").value;
+                let invertida = "";
+                for (let i = str.length - 1; i >= 0; i--) {
+                    invertida += str[i];
+                }
+                document.getElementById("resultadoString").innerText = "String invertida: " + invertida;
+            }
+
+            let INDICE = 13;
+            let SOMA = 0;
+            let K = 0;
+
+            while (K < INDICE) {
+                K = K + 1;
+                SOMA = SOMA + K;
+            }
+
+            document.getElementById("resultado").innerText = "O valor de SOMA é: " + SOMA;
+        </script>
+    </body>
+</html>
